@@ -39,7 +39,7 @@ export class NavBarComponent {
         this.tailleNavBar = document.getElementById(this.class)?.offsetHeight;
         if(document.documentElement.scrollTop > this.tailleAccueil - 140){
           this.class = 'sectionContent fixed';
-        }else if(document.documentElement.scrollTop === 0) {
+        }else if(document.documentElement.scrollTop < this.tailleAccueil + 140) {
           this.class = 'sectionContent';
         }
       }
