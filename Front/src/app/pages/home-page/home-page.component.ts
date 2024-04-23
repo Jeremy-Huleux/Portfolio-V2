@@ -52,13 +52,53 @@ export class HomePageComponent implements OnInit{
 
   gsapisation(){
     this.svg = document.querySelector(".angular");
-
+    this.gsap = gsap.timeline();
     this.gsap = gsap.from(this.svg, { 
-      rotation: 360, 
-      duration: 2, 
-      ease: "bounce.out" 
+      y: '-100vh', 
+      duration: 1, 
+      ease: "bounce.out",
+      delay: 0
     });
-    
+    this.svg = document.querySelector(".typescript");
+    this.gsap = gsap.timeline();
+    this.gsap = gsap.from(this.svg, { 
+      y: '-100vh', 
+      duration: 1, 
+      ease: "bounce.out",
+      delay: 1
+    });
+    this.svg = document.querySelector(".sass");
+    this.gsap = gsap.timeline();
+    this.gsap = gsap.from(this.svg, { 
+      y: '-100vh', 
+      duration: 1, 
+      ease: "bounce.out",
+      delay: 2
+    });
+    this.svg = document.querySelector(".css3");
+    this.gsap = gsap.timeline();
+    this.gsap = gsap.from(this.svg, { 
+      y: '-100vh', 
+      duration: 1, 
+      ease: "bounce.out",
+      delay: 3
+    });
+    this.svg = document.querySelector(".ssr");
+    this.gsap = gsap.timeline();
+    this.gsap = gsap.from(this.svg, { 
+      y: '-100vh', 
+      duration: 1, 
+      ease: "bounce.out",
+      delay: 4
+    });
+    this.svg = document.querySelector(".gsap");
+    this.gsap = gsap.timeline();
+    this.gsap = gsap.from(this.svg, { 
+      y: '-100vh', 
+      duration: 1, 
+      ease: "bounce.out",
+      delay: 5
+    });
   }
   //à l'initialisation de la page coté client on initialise le script rellax 
   ngOnInit(){

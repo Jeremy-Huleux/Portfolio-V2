@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
+
 section{
     
     height: 100vh;
@@ -9,13 +12,110 @@ section{
 .angular{
     background: url("../../../assets/angular-logo.svg") no-repeat;
     background-size: cover;
-    width: 135px;
-    height: 145px;
+    width: 114px;
+    height: 120px;
     
+}
+
+.css3{
+    background: url("../../../assets/css3-logo.svg") no-repeat;
+    background-size: cover;
+    width: 82px;
+    height: 116px;
+}
+
+.sass{
+    background: url("../../../assets/sass-logo.svg") no-repeat;
+    background-size: cover;
+    width: 129px;
+    height: 97px;
+}
+
+.typescript{
+    background: url("../../../assets/typescript-logo.svg") no-repeat;
+    background-size: cover;
+    width: 102px;
+    height: 101px;
+    
+}
+
+.imgSsr{
+    background: url("../../../assets/proton-xpr-seeklogo.svg") no-repeat;
+    background-size: cover;
+    width: 104px;
+    height: 117px;
+}
+
+.ssr{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.ssr p{
+    font-family: 'Jersey 20', sans-serif;
+    font-size: 1.3em;
+    font-style: italic;
+    color: #5d4ca0;
+}
+
+.gsap{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.gsap p{
+    font-family: 'Jersey 20', sans-serif;
+    font-size: 1.3em;
+    font-style: italic;
+    color: #88ce02;
+}
+
+.imgGsap{
+    background: url("../../../assets/greensock-gsap-icon-seeklogo.svg") no-repeat;
+    background-size: cover;
+    width: 104px;
+    height: 117px;
 }
 
 .accueilContent{
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.accueilTXT{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: center;
+    align-items: center;
+}
+
+.accueilTXT h1{
+    
+}
+
+.accueilTXT p{
+
+}
+
+.accueilContent .accueilTXT {
+    width: 70%;
+}
+
+.logos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
     justify-content: space-around;
+    align-items: center;
+    padding-top: 50px;
+    width: 95%;
 }
 
