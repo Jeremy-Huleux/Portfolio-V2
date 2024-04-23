@@ -2,7 +2,7 @@
 @use "sass:math";
 
 $nav-position: right; /* [left] or [center] or [right] */
-$nav-number: 5; /* Number of navigation icons. Please enter a good one */
+$nav-number: 4; /* Number of navigation icons. Please enter a good one */
 $nav-angular-range: 90deg;
 $nav-radius: 110px;
 $button-size: 50px;
@@ -24,7 +24,8 @@ $button-color-sub: rgba(0, 0, 0, 0.7);
 /* Webfont */
 @import url('https://fonts.googleapis.com/css?family=Bubblegum+Sans&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css');
+// @import url('https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css');
 
 
@@ -55,6 +56,7 @@ $button-color-sub: rgba(0, 0, 0, 0.7);
 
 /* Menu Style */
 .donuts {
+    display: none;
     position: fixed;
     @if $nav-position == center {
         right: 50%;
@@ -191,4 +193,11 @@ $button-color-sub: rgba(0, 0, 0, 0.7);
         height: 200vw;
         width: 200vw;
     }
+}
+@media only screen and (max-width: 540px) {
+
+	.donuts{
+		display:block;
+	}
+
 }
