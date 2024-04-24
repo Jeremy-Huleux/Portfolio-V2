@@ -19,6 +19,7 @@ nav {
 	height: 70px;
 	background: #fff;
 	font-family: 'Roboto', sans-serif;
+	z-index: 1;
 }
 
 nav li {
@@ -46,7 +47,7 @@ nav li a {
 
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 760px) {
 
 	nav{
 		display: none;
