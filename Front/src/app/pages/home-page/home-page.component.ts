@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons'; 
@@ -6,12 +6,9 @@ import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { PlatformService } from '../../services/platform.service';
 import Rellax from 'rellax';
-
 import { gsap } from 'gsap-trial';
 import { SplitText } from 'gsap-trial/SplitText';
-
-
-
+import { ScrollTrigger } from 'gsap/all';
 
 @Component({
   selector: 'app-home-page',
@@ -56,47 +53,27 @@ export class HomePageComponent implements OnInit{
 
   gsapisation(){
     /**
-     * ICI le GSAP pour le h1 animé 
+     * GSAP pour le h1 animé 
      */
-    gsap.registerPlugin(SplitText);
-    this.title = gsap.timeline();
-    this.text = document.getElementById("h1");
-    this.split = new SplitText("#h1", {type:"chars,words"});
-    this.chars = this.split.chars;
-    this.centerIndex = Math.floor(this.chars.length / 2);
-    for(let i = 0; i < this.chars.length; i++){
-      //alert("Dedans");
-      this.title.from(this.chars[i], {
-        x:(i - this.centerIndex) * 40,
-        opacity:0, 
-        duration: 1.8, 
-        ease: "power2"
-      }, i * 0.1);
-    }
-    this.title.fromTo(this.text, {z:500, y:74, visibility:"visible"}, {z:-1000, ease:"slow(0.1, 0.9)", duration: 4}, 0);
-    this.title.to(this.text, {rotationX:-720, autoAlpha:0, scale:0.3, duration: 1.5, ease:"power2.inOut"}, "-=1.5");
+    // gsap.registerPlugin(SplitText);
+    // this.title = gsap.timeline();
+    // this.text = document.getElementById("h1");
+    // this.split = new SplitText("#h1", {type:"chars,words"});
+    // this.chars = this.split.chars;
+    // this.centerIndex = Math.floor(this.chars.length / 2);
+    // for(let i = 0; i < this.chars.length; i++){
+    //   //alert("Dedans");
+    //   this.title.from(this.chars[i], {
+    //     x:(i - this.centerIndex) * 40,
+    //     opacity:0, 
+    //     duration: 1.8, 
+    //     ease: "power2"
+    //   }, i * 0.1);
+    // }
+    // this.title.fromTo(this.text, {z:500,  visibility:"visible"}, {z:-1000, ease:"slow(0.1, 0.9)", duration: 4}, 0);
     /**
-     * 
-     * tl = gsap.timeline(),
-      text = $("#whyGSAP"),
-      split = new SplitText("#whyGSAP", {type:"chars,words"}),
-      chars = split.chars,
-      centerIndex = Math.floor(chars.length / 2),
-      i;
-  for (i = 0; i < chars.length; i++) {
-    tl.from(chars[i], {x:(i - centerIndex) * 40, opacity:0, duration: 1.8, ease: "power2"}, i * 0.1);
-  }
-  tl.fromTo(text, {z:500, y:74, visibility:"visible"}, {z:-1000, ease:"slow(0.1, 0.9)", duration: 4}, 0);
-  tl.to(text, {rotationX:-720, autoAlpha:0, scale:0.3, duration: 1.5, ease:"power2.inOut"}, "-=1.5");
-  return tl;
-     * 
+     * GSAP pour chaque logo
      */
-    this.title.fromTo(this.text, {z:500, y:74, visibility:"visible"}, {z:-1000, ease:"slow(0.1, 0.9)", duration: 4}, 0);
-    this.title.to(this.text, {rotationX:-720, autoAlpha:0, scale:0.3, duration: 1.5, ease:"power2.inOut"}, "-=1.5");
-  
-
-
-
     this.svg = document.querySelector(".angular");
     this.gsap = gsap.timeline();
     this.gsap = gsap.from(this.svg, { 
@@ -146,30 +123,59 @@ export class HomePageComponent implements OnInit{
       delay: 1.5
     });
   }
+  /**
+   * GSAP pour afficher les section gs_reveal from right or from left
+   */
+  affichage(){
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.gs_reveal').forEach((elem: any) => {
+      this.hide(elem); // assure that the element is hidden when scrolled into view
+
+      ScrollTrigger.create({
+        trigger: elem,
+        //markers: true,
+        onEnter: () => { this.animateFrom(elem) },
+        onEnterBack: () => { this.animateFrom(elem, -1) },
+        onLeave: () => { this.hide(elem) } // assure that the element is hidden when scrolled into view
+      });
+    });
+    }
+  
+    animateFrom(elem: any, direction?: number): void {
+      direction = direction || 1;
+      let x = 0,
+          y = direction * 100;
+      if (elem.classList.contains('gs_reveal_fromLeft')) {
+        x = -100;
+        y = 0;
+      } else if (elem.classList.contains('gs_reveal_fromRight')) {
+        x = 100;
+        y = 0;
+      }
+      elem.style.transform = `translate(${x}px, ${y}px)`;
+      elem.style.opacity = '0';
+      gsap.fromTo(elem, {x: x, y: y, autoAlpha: 0}, {
+        duration: 1.25,
+        x: 0,
+        y: 0,
+        autoAlpha: 1,
+        ease: 'expo',
+        overwrite: 'auto'
+      });
+    }
+  
+    hide(elem: any): void {
+      gsap.set(elem, {autoAlpha: 0});
+    }
+
   //à l'initialisation de la page coté client on initialise le script rellax 
+  // et le GSAP pour eviter les bug dûe au SSR
   ngOnInit(){
     if(this.platformService.isOnVue()){
       this.rellax = new Rellax('.rellax');
       this.gsapisation();
+      this.affichage();
     }  
   }
 
 }
-  /**
-  function whyGSAP() {
-  var tl = gsap.timeline(),
-      text = $("#whyGSAP"),
-      split = new SplitText("#whyGSAP", {type:"chars,words"}),
-      chars = split.chars,
-      centerIndex = Math.floor(chars.length / 2),
-      i;
-  for (i = 0; i < chars.length; i++) {
-    tl.from(chars[i], {x:(i - centerIndex) * 40, opacity:0, duration: 1.8, ease: "power2"}, i * 0.1);
-  }
-  tl.fromTo(text, {z:500, y:74, visibility:"visible"}, {z:-1000, ease:"slow(0.1, 0.9)", duration: 4}, 0);
-  tl.to(text, {rotationX:-720, autoAlpha:0, scale:0.3, duration: 1.5, ease:"power2.inOut"}, "-=1.5");
-  return tl;
-}
-   */
-
-  
